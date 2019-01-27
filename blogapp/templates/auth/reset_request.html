@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <form action="" method="POST" class="main-form">
+        {{ form.hidden_tag() }}
+        <h1 class="form-title">Reset Password</h1>
+        <div class="form-group">
+            {{ form.email.label }}
+            {% if form.email.errors %}
+                {{ form.email(class = "form-input invalid-input") }}
+                <div class="invalid-feedback">
+                    {% for error in form.email.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.email(class = "form-input") }}
+            {% endif %}
+        </div>
+        {{ form.submit(class = "form-submit") }}
+    </form>
+{% endblock content %}

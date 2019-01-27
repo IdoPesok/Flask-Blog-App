@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <h1 class="text-center">{{ user.username }} Post's</h1>
+    {% for post in posts %}
+        <div class="post-container">
+            <img class="post-thumbnail-img" src="{{ post.image_url }}">
+            <div class="post-thumbnail-content">
+                <h1 class="post-thumbnail-title">{{ post.title }}</h1>
+                <p>{{ post.content[0:180] }}...</p>
+                <p>By: {{ post.author.username }}</p>
+                <a class="post-thumbnail-read-more" href="{{ url_for('posts.show', post_id = post.id) }}">Read More</a>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock content %}

@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <form action="" method="POST" class="main-form">
+        {{ form.hidden_tag() }}
+        <h1 class="form-title">New Comment</h1>
+        <div class="form-group">
+            {{ form.content.label }}
+            {% if form.content.errors %}
+                {{ form.content(class = "form-text-area invalid-input") }}
+                <div class="invalid-feedback">
+                    {% for error in form.content.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.content(class = "form-text-area") }}
+            {% endif %}
+        </div>
+        {{ form.submit(class = "form-submit") }}
+    </form>
+{% endblock content %}

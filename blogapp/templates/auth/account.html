@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="account-container">
+        <img class="profile" src="{{ url_for('static', filename='profile_pics/' + current_user.image_file) }}">
+        <h1 class="text-center">My Account</h1>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.email.label }}
+                {% if form.email.errors %}
+                    {{ form.email(class = "form-input invalid-input") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.email.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.email(class = "form-input") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.username.label }}
+                {% if form.username.errors %}
+                    {{ form.username(class = "form-input invalid-input") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.username.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.username(class = "form-input") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.picture.label() }}
+                {{ form.picture(class="choose-picture") }}
+                {% if form.picture.errors %}
+                    <div class="invalid-feedback">
+                        {% for error in form.picture.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            {{ form.submit(class = "form-submit") }}
+        </form>
+    </div>
+    {% if posts %}
+        <h1 class="text-center">My Posts</h1>
+        {% for post in posts %}
+            <div class="post-container">
+                <img class="post-thumbnail-img" src="{{ post.image_url }}">
+                <div class="post-thumbnail-content">
+                    <h1 class="post-thumbnail-title">{{ post.title }}</h1>
+                    <p>{{ post.content[0:180] }}...</p>
+                    <p>By: {{ post.author.username }}</p>
+                    <a class="post-thumbnail-read-more" href="{{ url_for('posts.show', post_id = post.id) }}">Read More</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock content %}

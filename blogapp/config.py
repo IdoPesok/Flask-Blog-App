@@ -1,0 +1,8 @@
+class Config:
+    SECRET_KEY = 'fc1522488bf255d9af93c72b8f7acca6'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///site.db'
+    MAIL_SERVER = 'smtp.googlemail.com'
+    MAIL_PORT = 587
+    MAIL_USE_TLS = True
+    MAIL_USERNAME = 'ENTER_EMAIL_USERNAME_HERE'
+    MAIL_PASSWORD = 'ENTER_EMAIL_PASSWORD_HERE'

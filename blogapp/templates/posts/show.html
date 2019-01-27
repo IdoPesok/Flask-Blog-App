@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="show-post-container">
+        <img class="show-post-img" src="{{ post.image_url }}">
+        <div class="show-post-content">
+            <h1>{{ post.title }}</h1>
+            <p>{{ post.content }}</p>
+            <p><strong>By: {{ post.author.username }}</strong></p>
+            <p><strong>Posted On: {{ post.date_posted.strftime('%m-%d-%Y') }}</strong></p>
+            {% if current_user != post.author %}
+                <a class="show-post-btn bg-purple" href="{{ url_for('posts.users', user_id = post.author.id) }}">View Account</a>
+            {% endif %}
+            {% if current_user.id %}
+                <a class="show-post-btn bg-baby-blue" href="{{ url_for('comments.new', post_id = post.id) }}">Comment</a>
+                {% if post.author == current_user %}
+                    <a class="show-post-btn bg-info" href="{{ url_for('posts.edit', post_id = post.id) }}">Edit</a>
+                    <a class="show-post-btn bg-danger" href="{{ url_for('posts.delete', post_id = post.id) }}">Delete</a>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+    {% if post.comments %}
+        <div class="main-comments-container">
+            <div class="padded">
+                <h1>Comments</h1>
+                {% for comment in post.comments %}
+                    <div class="comment-container">
+                        <p>- {{ comment.author.username }}</p>
+                        <h4>{{ comment.content }}</h4>
+                        {% if current_user and comment.author == current_user %}
+                            <a class="show-post-btn-small bg-info" href="{{ url_for('comments.edit', comment_id = comment.id, post_id = post.id) }}">Edit</a>
+                            <a class="show-post-btn-small bg-danger" href="{{ url_for('comments.delete', comment_id = comment.id, post_id = post.id) }}">Delete</a>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+{% endblock content %}
